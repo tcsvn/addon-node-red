@@ -21,7 +21,6 @@ RUN \
         make=4.3-r0 \
         py3-pip=22.1.1-r0 \
         python3-dev=3.10.5-r0 \
-        python3=3.10.5-r0 \
     \
     && apk add --no-cache \
         git=2.36.2-r0 \
@@ -31,6 +30,7 @@ RUN \
         npm=8.10.0-r0 \
         openssh-client=9.0_p1-r2 \
         patch=2.7.6-r7 \
+        python3=3.10.5-r0 \
     \
     && npm config set unsafe-perm true \
     \

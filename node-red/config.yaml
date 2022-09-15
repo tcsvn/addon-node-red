@@ -1,7 +1,7 @@
 ---
-name: Node-RED
+name: Node-RED-custom
 version: dev
-slug: nodered
+slug: nodered2
 description: Flow-based programming for the Internet of Things
 url: https://github.com/hassio-addons/addon-node-red
 codenotary: codenotary@frenck.dev
@@ -18,13 +18,14 @@ arch:
   - armv7
   - i386
 ports:
-  80/tcp: 1880
+  80/tcp: 1881
 ports_description:
   80/tcp: Web interface
 hassio_api: true
 hassio_role: manager
 homeassistant_api: true
 host_network: true
+full_access: true
 auth_api: true
 uart: true
 map:
@@ -33,7 +34,7 @@ map:
   - share:rw
   - ssl
 options:
-  credential_secret: ""
+  credential_secret: "asdf"
   theme: default
   http_node:
     username: ""
@@ -41,12 +42,13 @@ options:
   http_static:
     username: ""
     password: ""
-  ssl: true
+  ssl: false
   certfile: fullchain.pem
   keyfile: privkey.pem
   system_packages: []
   npm_packages: []
   init_commands: []
+
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   credential_secret: password

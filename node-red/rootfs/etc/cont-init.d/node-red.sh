@@ -37,13 +37,9 @@ if ! bashio::fs.directory_exists '/config/node-red/'; then
     sed -i "s/%%ID%%/${id}/" "/config/node-red/flows.json"
 fi
 
-# Patch Node-RED Dashboard
-cd /opt/node_modules/node-red-dashboard || bashio.exit.nok 'Failed cd'
-patch -p1 < /etc/node-red/patches/node-red-dashboard-show-dashboard.patch
-
 # Pass in port & SSL settings
 port=$(bashio::addon.port 80)
-sed -i "s/%%PORT%%/${port:-80}/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
+
 if ! bashio::var.has_value "${port}"; then
     bashio::log.warning
     bashio::log.warning "Direct access mode is disabled, Node-RED Dashboard"
@@ -54,11 +50,6 @@ if ! bashio::var.has_value "${port}"; then
     bashio::log.warning
 fi
 
-if bashio::config.true 'ssl'; then
-    sed -i "s/%%SSL%%/true/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
-else
-    sed -i "s/%%SSL%%/false/" "/opt/node_modules/node-red-dashboard/nodes/ui_base.html"
-fi
 
 # Ensures conflicting Node-RED packages are absent
 cd /config/node-red || bashio::exit.nok "Could not change directory to Node-RED"
